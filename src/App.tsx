@@ -17,6 +17,8 @@ import Checkout from "./pages/Checkout";
 import Favorites from "./pages/Favorites";
 import Stores from "./pages/Stores";
 import StoreDetail from "./pages/StoresDetail";
+import AdminDashboard from "./pages/AdminDashboard";
+import Users from "./pages/Users";
 
 // HALAMAN SEMENTARA
 function PlaceholderPage({ title }: { title: string }) {
@@ -142,14 +144,18 @@ function App() {
   return (
     <div className="min-h-screen bg-[#fafafa] text-gray-900">
 
-      {/* NAVBAR */}
-      <Navbar
-        cartCount={cart.length}
-        search={search}
-        onSearchChange={setSearch}
-        activePage={activePage}
-        onNavigate={handleNavigate}
-      />
+      {/* Navbar pembeli tidak ditampilkan di halaman admin */}
+        {!location.pathname.startsWith("/admin") && (
+          <Navbar
+            cartCount={cart.length}
+            search={search}
+            onSearchChange={setSearch}
+            activePage={activePage}
+            onNavigate={handleNavigate}
+          />
+        )}
+
+     
 
       {/* ROUTING HALAMAN */}
       <Routes>
@@ -249,6 +255,24 @@ function App() {
         <Route
           path="*"
           element={<Navigate to="/" replace />}
+        />
+
+         {/* ADMIN DASHBOARD */}
+        <Route
+          path="/admin"
+          element={<AdminDashboard />}
+        />  
+
+        {/* ADMIN DASHBOARD */}
+        <Route
+          path="/admin"
+          element={<AdminDashboard />}
+        />
+                
+        {/* USERS MANAGEMENT */}
+        <Route
+          path="/admin/users"
+          element={<Users />}
         />
 
       </Routes>
